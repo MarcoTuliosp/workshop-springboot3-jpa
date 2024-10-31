@@ -44,6 +44,16 @@ public class UserResource {
     
     
     
+    // aula 270
+    
+    
+    
+    
+    //cod3r aula 67
+    
+    
+   
+    
     
     
     
