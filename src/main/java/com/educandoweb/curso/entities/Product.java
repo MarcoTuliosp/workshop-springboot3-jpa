@@ -9,14 +9,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
-public class Product  implements Serializable{
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -24,12 +26,14 @@ public class Product  implements Serializable{
 	private String desciption;
 	private double price;
 	private String imgUrl;
-	
-	@Transient
+
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+
 	private Set<Category> categories = new HashSet<>();
-	
+
 	public Product() {
-		
+
 	}
 
 	public Product(Long id, String name, String desciption, double price, String imgUrl, Set<Category> categories) {
@@ -39,7 +43,7 @@ public class Product  implements Serializable{
 		this.desciption = desciption;
 		this.price = price;
 		this.imgUrl = imgUrl;
-		
+
 	}
 
 	public Long getId() {
@@ -102,13 +106,5 @@ public class Product  implements Serializable{
 		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
 
-	
-	
-	
-	
-	
 }
